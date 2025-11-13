@@ -21,8 +21,8 @@ public class Algebra {
    		System.out.println(sqrt(36));
 		System.out.println(sqrt(263169));
    		System.out.println(sqrt(76123));
-		System.out.println(minus(0, 40));
-		System.out.println(minus(0, -40));
+		System.out.println(div(-9, -3));
+		System.out.println(div(9, -3));
 	}  
 
 	// Returns x1 + x2
@@ -59,7 +59,13 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if(x1==0 || x2==0)
+		return 0;
 		int t = 0;
+		if (x2 < 0) {
+			for(int i=x2; i<0; i++)
+			t = minus(t, x1);
+		}
 		for(int i=0; i<x2; i++){
 			t = plus(t, x1);
 		}
@@ -78,9 +84,25 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int counter = 0;
-		while (x1 >= x2) {
+		if (x2 < 0) {
+			x2 = minus(0, x2);
+			if (x1 < 0) {
+				x1 = minus(0, x1);
+				while (x1 >= x2) {
+				counter++;
+				x1 = minus(x1, x2);
+			}
+			}
+			while (x1 >= x2) {
+				counter--;
+				x1 = minus(x1, x2);
+			}
+		}
+		else{
+			while (x1 >= x2) {
 			counter++;
 			x1 = minus(x1, x2);
+		}
 		}
 		return counter;
 	}
